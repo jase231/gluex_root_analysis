@@ -12,29 +12,29 @@ OBJS = $(SRCS:%.cpp=$(BIN_DIR)/%.o)
 all: install
 
 $(BIN_DIR):
-    @mkdir -p $(BIN_DIR)
+	@mkdir -p $(BIN_DIR)
 
 # Rule to compile source files into object files
 $(BIN_DIR)/%.o: %.cpp | $(BIN_DIR)
-    $(CXX) -c $(ROOTFLAGS) $(CXXFLAGS) $< -o $@
+	$(CXX) -c $(ROOTFLAGS) $(CXXFLAGS) $< -o $@
 
 # Rule to link the executable
 $(BIN_PATH): $(OBJS) | $(BIN_DIR)
-    @rm -f $(BIN_PATH)
-    $(CXX) -o $(BIN_PATH) $(OBJS) $(LDFLAGS)
-    @chmod 755 $(BIN_PATH)
+	@rm -f $(BIN_PATH)
+	$(CXX) -o $(BIN_PATH) $(OBJS) $(LDFLAGS)
+	@chmod 755 $(BIN_PATH)
 
 install: $(BIN_PATH)
-    @mkdir -p ../../$(BIN_DIR)
-    @cp $(BIN_PATH) ../../$(BIN_DIR)/
+	@mkdir -p ../../$(BIN_DIR)
+	@cp $(BIN_PATH) ../../$(BIN_DIR)/
 
 clean:
-    rm -rf $(BMS_OSNAME)
-    rm -f ../../$(BIN_PATH)
+	rm -rf $(BMS_OSNAME)
+	rm -f ../../$(BIN_PATH)
 
 env:
-    @echo BMS_OSNAME $(BMS_OSNAME)
-    @echo FLAGS $(CXXFLAGS) $(ROOTFLAGS)
-    @echo LIBS $(LDFLAGS)
+	@echo BMS_OSNAME $(BMS_OSNAME)
+	@echo FLAGS $(CXXFLAGS) $(ROOTFLAGS)
+	@echo LIBS $(LDFLAGS)
 
 .PHONY: all clean install env
