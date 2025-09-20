@@ -1,27 +1,40 @@
 CXX = g++
 CXXFLAGS = -O -Wall
 ROOTFLAGS = $(shell $(ROOTSYS)/bin/root-config --cflags)
-LDFLAGS := $(shell $(ROOTSYS)/bin/root-config --libs)
+LDFLAGS = $(shell $(ROOTSYS)/bin/root-config --libs)
 
-# Source files
 SRCS = compare_hypotheses.cpp main.cpp
-# Object files
-OBJS = $(SRCS:.cpp=.o)
-# Executable name
-EXEC = compare_hypotheses
+EXEC = chisq_hypothesis_comparison
+BIN_DIR = $(BMS_OSNAME)/bin
+BIN_PATH = $(BIN_DIR)/$(EXEC)
+OBJS = $(SRCS:%.cpp=$(BIN_DIR)/%.o)
 
-# Default rule: build the executable (release mode)
-all: $(EXEC)
+all: install
 
-# Rule to link the executable
-$(EXEC): $(OBJS)
-	$(CXX) -o $@ $^ $(LDFLAGS)
+$(BIN_DIR):
+    @mkdir -p $(BIN_DIR)
 
 # Rule to compile source files into object files
-%.o: %.cpp
-	$(CXX) -c $(ROOTFLAGS) $(CXXFLAGS) $< -o $@
+$(BIN_DIR)/%.o: %.cpp | $(BIN_DIR)
+    $(CXX) -c $(ROOTFLAGS) $(CXXFLAGS) $< -o $@
+
+# Rule to link the executable
+$(BIN_PATH): $(OBJS) | $(BIN_DIR)
+    @rm -f $(BIN_PATH)
+    $(CXX) -o $(BIN_PATH) $(OBJS) $(LDFLAGS)
+    @chmod 755 $(BIN_PATH)
+
+install: $(BIN_PATH)
+    @mkdir -p ../../$(BIN_DIR)
+    @cp $(BIN_PATH) ../../$(BIN_DIR)/
 
 clean:
-	rm -f $(OBJS) $(EXEC)
+    rm -rf $(BMS_OSNAME)
+    rm -f ../../$(BIN_PATH)
 
-.PHONY: all clean
+env:
+    @echo BMS_OSNAME $(BMS_OSNAME)
+    @echo FLAGS $(CXXFLAGS) $(ROOTFLAGS)
+    @echo LIBS $(LDFLAGS)
+
+.PHONY: all clean install env
