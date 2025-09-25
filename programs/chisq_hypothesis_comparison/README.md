@@ -24,12 +24,11 @@ The GlueX experiment features nearly full angular coverage and can detect both n
 
 ## Installation
 
-Clone the repository and compile using make:
+If you have installed gluex_root_analysis from the central Makefile, `chisq_hypothesis_comparison` should have been automatically installed to your $PATH.
 
+If you have made modifications to the code, you will need to rebuild using the Makefile found in the chisq_hypothesis_comparison directory (where this README is located):
 ```bash
-git clone https://github.com/jase231/compareHypotheses
-cd compareHypotheses
-make
+make install
 ```
 
 ## Usage
