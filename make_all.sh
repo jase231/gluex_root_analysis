@@ -13,6 +13,8 @@ cd programs/MakeDSelector
 make all
 cd ../tree_to_amptools/
 make all
+cd ../chisq_hypothesis_comparison/
+make all
 cd ../MakePROOFPackage
 ./build.sh
 cd ../..
