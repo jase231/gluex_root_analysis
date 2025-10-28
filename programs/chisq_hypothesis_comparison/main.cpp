@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 
   // optional configs
   std::string out_file = reader.Get("Misc", "outfile", "placeholder");
-  bool best_by_beam = reader.GetBoolean("Misc", "best_per_beam", false);
+  bool best_by_beam = reader.GetBoolean("Misc", "best_per_beam", true);
   bool preserve_combos = reader.GetBoolean("Misc", "preserve_combos", true);
   bool logging = reader.GetBoolean("Misc", "logging", false);
 
