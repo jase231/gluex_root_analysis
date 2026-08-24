@@ -834,8 +834,8 @@ double DAnalysisUtilities::Get_AccidentalScalingFactor(int locRunNumber, double 
 		istringstream locStringStream(buff);
 
 		//extract it
-		locStringStream >> locHodoscopeHiFactor >> locHodoscopeHiFactorErr >> locHodoscopeLoFactor
-						>> locHodoscopeLoFactorErr >> locMicroscopeFactor >> locMicroscopeFactorErr
+		locStringStream >> locHodoscopeHiFactor >> locHodoscopeHiFactorErr >> locMicroscopeFactor
+						>> locMicroscopeFactorErr >> locHodoscopeLoFactor >> locHodoscopeLoFactorErr
 						>> locTAGMEnergyBoundHi >> locTAGMEnergyBoundLo;
 
 		//Close the pipe
